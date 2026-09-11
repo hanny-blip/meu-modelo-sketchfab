@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Meu modelo Sketchfab</title>
+
+    <script src="https://static.sketchfab.com/api/sketchfab-viewer-1.12.1.js"></script>
+
+</head>
+
+<body>
+
+    <h1>Meu modelo</h1>
+
+    <iframe id="meuModelo"
+        width="800"
+        height="600"
+        src="https://sketchfab.com/models/69d9c9073023429cb2867af1037e1f8a/embed"
+        frameborder="0"
+        allow="autoplay; fullscreen; xr-spatial-tracking">
+    </iframe>
+
+    <script>
+
+        var iframe = document.getElementById('meuModelo');
+
+        var client = new Sketchfab('1.12.1', iframe);
+
+        client.init('69d9c9073023429cb2867af1037e1f8a', {
+
+            success: function(api) {
+
+                api.start();
+
+                api.addEventListener('viewerready', function() {
+
+                    api.setAnnotationCameraTransition(true, true);
+
+                    api.addEventListener('annotationSelect', function(index) {
+
+    console.log("Cliquei na anotação:", index);
+
+    if (index === 0) {
+
+        api.setCurrentAnimationByUID('292f8ac8668d4992a63d774b9694890a', function(err) {
+
+            if (!err) {
+
+                api.setCycleMode('one');
+                api.play();
+
+            }
+
+        });
+
+    }
+
+});
+
+                });
+
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>
